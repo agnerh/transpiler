@@ -1,5 +1,5 @@
-#include "parser.h";
-#include "analyser.h";
+#include "parser.h"
+#include "../analyser/analyser.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -16,26 +16,19 @@ Either translate it to an AST for your target language to be consumed by an impl
 or directly generate code from your source AST and run it through its native tools.
 */
 
-class Parser {
+int Parser::Read() {
+    return 0;
+}
 
-    std::string filePath;
+Parser::Parser() { }
 
-    int Read() {
-    }
+Parser::Parser(std::string filePath) {
+    this->filePath = filePath;
+}
 
-public:
-    Parser() {
-
-    }
-
-    Parser(std::string filePath) {
-        this->filePath = filePath;
-    }
-
-    int Parse(std::string filePath) {
-        this->filePath = filePath;
-        
-        int res = this->Read();
-        return res;
-    }
-};
+int Parser::Parse(std::string filePath) {
+    this->filePath = filePath;
+    
+    int res = this->Read();
+    return res;
+}

@@ -1,86 +1,70 @@
-#include "analyser.h";
-#include <token.h>
+#include "analyser.h"
+#include "token.h"
 #include <vector>
 #include <string>
 #include <iostream>
 
-class Analyser {
-    private:
-        std::vector<std::string> keywords {
-            "if", "else", 
-            "for", "of", "in", 
-            "var", "let", "const", 
-            "while", "do",
-            "try", "catch", "finally",
-            "function", "()", "=>"
-        };
+Token Analyser::GetToken(char character) {
+    enum TokenType type = TokenType::VARIABLE;
 
-        std::vector<Token> tokens;
+    if (character == end_statement) {
+        type = TokenType::END_STATEMENT;
+    }
 
-        char end_statement = ';';
-        char space = ' ';
+    if (character == space) {
+        type = TokenType::SPACE;
+    }
 
-        Token GetToken(char character) {
-            enum TokenType type = TokenType::VARIABLE;
+    std::string character_string { character };
+    return Token(type, character_string);
+}
 
-            if (character == end_statement) {
-                type = TokenType::END_STATEMENT;
-            }
+Token Analyser::GetToken(std::string source) {
+    enum TokenType type = TokenType::VARIABLE;
 
-            if (character == space) {
-                type = TokenType::SPACE;
-            }
-
-            std::string character_string { character };
-            return Token(type, character_string);
+    for (auto it = keywords.begin(); it != keywords.end(); it++) {
+        if (source == *it) {
+            type = TokenType::VARIABLE;
+            break;
         }
+    }
 
-        Token GetToken(std::string source) {
-            enum TokenType type = TokenType::VARIABLE;
+    return Token(type, source);
+}
 
-            for (auto it = keywords.begin(); it != keywords.end(); it++) {
-                if (source == *it) {
-                    type = TokenType::VARIABLE;
-                    break;
-                }
-            }
-
-            return Token(type, source);
-        }
-
-        int AnalyseLine(std::string line) {
-            std::string current;
-            
-            for(auto it = line.begin(); it != line.end(); it++) {
-
-                if (!*it) {
-                    continue;
-                }
-
-                if (*it != space && *it != end_statement) {
-                    current.push_back(*it);
-                    continue;
-                }
-
-                tokens.push_back(GetToken(current));
-                tokens.push_back(GetToken(*it));
-                current.clear();
-            }
-        }
-
-    public:
-        std::vector<Token> GetTokens() {
-            return tokens;
-        }
+int Analyser::AnalyseLine(std::string line) {
+    std::string current;
     
-        int AnalyseChunk(std::vector<std::string> lines) {
-            for (auto line : lines) {
-                int res = AnalyseLine(line);
-                if (!res) {
-                    return res;
-                }
-            }
+    for(auto it = line.begin(); it != line.end(); it++) {
 
-            return 0;
+        if (!*it) {
+            continue;
         }
-};
+
+        if (*it != space && *it != end_statement) {
+            current.push_back(*it);
+            continue;
+        }
+
+        tokens.push_back(GetToken(current));
+        tokens.push_back(GetToken(*it));
+        current.clear();
+    }
+
+    return 0;
+}
+
+std::vector<Token> Analyser::GetTokens() {
+    return this->tokens;
+}
+
+int Analyser::AnalyseChunk(std::vector<std::string> lines) {
+    for (auto line : lines) {
+        int res = AnalyseLine(line);
+        if (!res) {
+            return res;
+        }
+    }
+
+    return 0;
+}
