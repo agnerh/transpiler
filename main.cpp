@@ -1,5 +1,8 @@
 #include "compiler/compiler.h"
 #include <string>
+#include <filesystem>
+#include <iostream>
+
 /*
 To perform the transformation, however, we will not work directly on code. 
 Instead, we will work on a representation of the code that would make this operation easier and more maintainable. 
@@ -17,7 +20,10 @@ Generation stage: once we have the AST of the target language we generate the co
 
 int main() {
     //TODO: Add CLI arguments
-    std::string entry_point = "testfiles/test.ts";
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::filesystem::path testfile = currentPath / "testfiles" / "variable.ts";
+    // std::string entry_point = "testfiles/test.ts";
+    std::string entry_point = testfile.string();
     
     Compiler* cmp = new Compiler();
     cmp->SetEntryPoint(entry_point);

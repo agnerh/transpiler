@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -I..
+CFLAGS = -Wall -I.. -g
 SRC = compiler.cpp
 OBJ = $(addprefix ../build/compiler/, $(SRC:.cpp=.o))
 

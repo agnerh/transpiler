@@ -1,31 +1,23 @@
 #pragma once
 
 #include "token.h"
+#include "keywords.h"
+#include "operators.h"
+#include "lexical_token.h"
+#include "lexer.h"
+#include "../filemanager/filemanager.h"
 #include <iostream>
 #include <vector>
 #include <string>
+#include <memory>
 
 class Analyser {
     private:
-        std::vector<std::string> keywords {
-            "if", "else", 
-            "for", "of", "in", 
-            "var", "let", "const", 
-            "while", "do",
-            "try", "catch", "finally",
-            "function", "()", "=>"
-        };
-
-        std::vector<Token> tokens;
-
-        char end_statement = ';';
-        char space = ' ';
-
-        Token GetToken(char character);
-        Token GetToken(std::string source);
-        int AnalyseLine(std::string line);
+        std::vector<LexicalToken> tokens;
+        std::unique_ptr<FileManager> fm;
+        std::unique_ptr<Lexer> lexer;
     
     public:
-        std::vector<Token> GetTokens();
-        int AnalyseChunk(std::vector<std::string> lines);
+        std::vector<LexicalToken> GetTokens();
+        int Analyse();
 };

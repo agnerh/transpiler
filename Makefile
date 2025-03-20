@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -I.
+CFLAGS = -Wall -I. -g
 SUB_DIRS = analyser filemanager compiler parser
 BUILD_DIR = build
 TARGET = ts-transpiler

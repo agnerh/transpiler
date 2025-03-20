@@ -1,1 +1,0 @@
-const myvariable = "Hello world!";

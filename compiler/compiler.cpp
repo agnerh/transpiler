@@ -23,15 +23,21 @@ int Compiler::Compile() {
 
     while(!fm->Empty()) {
         auto file_info = fm->GetNextFile();
-        auto chunk = fm->GetChunk(file_info);
+        if (!file_info.has_value()) {
+            break;
+        }
+
+        auto chunk = fm->GetChunk(file_info.value());
 
         analyser->AnalyseChunk(chunk);
+
+        file_info->status = FileStatus::READ;
     }
 
     auto tokens = analyser->GetTokens();
     for (auto token : tokens) {
         std::cout << "TOKEN: \n\tTYPE: " 
-            << token.type << "\n\tSOURCE: " 
+            << static_cast<int>(token.type) << "\n\tSOURCE: " 
             << token.source << "\n" 
             << std::endl;
     }

@@ -4,6 +4,7 @@
 
 FileInfo::FileInfo(std::string path) {
     this->path = path;
+    this->status = FileStatus::UNREAD;
 }
 
 FileInfo::FileInfo(std::string path, FileStatus status) {

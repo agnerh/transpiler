@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -I..
+CFLAGS = -Wall -I.. -g
 SRC = filemanager.cpp fileinfo.cpp
 OBJ = $(addprefix ../build/filemanager/, $(SRC:.cpp=.o))
 

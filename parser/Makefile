@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -I..
+CFLAGS = -Wall -I.. -g
 SRC = parser.cpp
 OBJ = $(addprefix ../build/parser/, $(SRC:.cpp=.o))
 

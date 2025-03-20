@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -I..
+CFLAGS = -Wall -I.. -g
 SRC = analyser.cpp
 OBJ = $(addprefix ../build/analyser/, $(SRC:.cpp=.o))
 
