@@ -7,13 +7,14 @@
 #include <memory>
 #include <vector>
 #include <optional>
+#include <algorithm>
 
 class FileManager {
     private:
         std::unordered_set<FileInfo> files;
         std::ifstream input_stream;
 
-        FileInfo GetNextFile();
+        std::optional<FileInfo> GetNextFile();
 
     public:
         int AddFile(std::string file);

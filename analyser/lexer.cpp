@@ -42,7 +42,7 @@ LexicalToken Lexer::GetIdentifierToken(std::string buffer, uint pos) {
     auto endPos = pos + 1;
     char endChar = buffer.at(endPos);
 
-    while (IsSpecialCharacter(endChar)) {
+    while (IsIdentifierCharacter(endChar)) {
         endPos++;
         endChar = buffer.at(endPos);
     }

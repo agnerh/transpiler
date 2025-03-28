@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -I.. -g
-SRC = analyser.cpp
+SRC = $(wildcard *.cpp)
 OBJ = $(addprefix ../build/analyser/, $(SRC:.cpp=.o))
 
 .PHONY: all clean

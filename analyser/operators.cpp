@@ -1,6 +1,6 @@
 #include "operators.h"
 
-const std::unordered_map<std::string, TokenType> operator_map = {
+const std::unordered_map<std::string, TokenType> operators = {
     {"+", TokenType::PLUS},
     {"-", TokenType::MINUS},
     {"*", TokenType::MULTIPLY},

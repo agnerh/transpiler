@@ -12,23 +12,29 @@ int FileManager::AddFile(std::string path) {
     return 0;
 }
 
-FileInfo FileManager::GetNextFile() {
-    // Find first unread file
+std::optional<FileInfo> FileManager::GetNextFile() {
+    auto it = std::find_if(this->files.begin(), this->files.end(), 
+            [](const FileInfo& file) {
+                return file.status == FileStatus::UNREAD;
+            });
+
+    if (it == this->files.end()) {
+        return std::nullopt;
+    }
+
+    return *it;
 }
 
 std::string FileManager::GetChunk() {
-    // TODO: Keep track of filestreams in this class instead of trusting 
-    // FileInfo parameters to be correct
-
     std::string lines;
     auto info = GetNextFile();
 
-    if (info.path.empty()) {
+    if (!info.has_value() || info.value().path.empty()) {
         return lines;
     }
 
     if (!input_stream.is_open()) {
-        input_stream.open(info.path);
+        input_stream.open(info.value().path);
     }
 
     std::string current_line;

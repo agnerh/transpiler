@@ -19,5 +19,7 @@ class Analyser {
     
     public:
         std::vector<LexicalToken> GetTokens();
-        int Analyse();
+        int Analyse(FileInfo info);
+
+        Analyser();
 };
