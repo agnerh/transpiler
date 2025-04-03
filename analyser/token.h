@@ -12,6 +12,10 @@ enum class TokenType {
     SEMICOLON,
     EOF_,
 
+    // Comments
+    SINGLELINE_COMMENT,
+    MULTILINE_COMMENT,
+
     //Identifier
     IDENTIFIER,
     STRING_VALUE,

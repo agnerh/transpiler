@@ -7,7 +7,8 @@
 int main() {
     //TODO: Add CLI arguments
     std::filesystem::path currentPath = std::filesystem::current_path();
-    std::filesystem::path testfile = currentPath / "testfiles" / "str_variable.ts";
+    // std::filesystem::path testfile = currentPath / "testfiles" / "str_variable.ts";
+    std::filesystem::path testfile = currentPath / "testfiles" / "num_variable.ts";
     // std::string entry_point = "testfiles/test.ts";
     std::string entry_point = testfile.string();
     
