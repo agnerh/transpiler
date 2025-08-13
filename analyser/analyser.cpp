@@ -19,8 +19,12 @@ int Analyser::Analyse(FileInfo info) {
 
     do {
         token = this->lexer->GetNextToken(buffer, pos);
-        this->tokens.push_back(token);
         pos += token.value.length();
+
+        if (token.type != TokenType::SPACE) {
+            this->tokens.push_back(token);
+        }
+
     } while (token.type != TokenType::EOF_);
 
     return 0;

@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -I.. -g
-SRC = parser.cpp
+SRC = $(wildcard *.cpp)
 OBJ = $(addprefix ../build/parser/, $(SRC:.cpp=.o))
 
 .PHONY: all clean

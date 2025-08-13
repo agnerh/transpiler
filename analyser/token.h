@@ -12,6 +12,11 @@ enum class TokenType {
     SEMICOLON,
     EOF_,
 
+    OPEN_PARENTHESIS,
+    CLOSE_PARENTHESIS,
+    OPEN_BRACKET,
+    CLOSE_BRACKET,
+
     // Comments
     SINGLELINE_COMMENT,
     MULTILINE_COMMENT,

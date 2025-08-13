@@ -1,34 +1,34 @@
 #include "parser.h"
-#include "../analyser/analyser.h"
-#include <iostream>
-#include <sstream>
-#include <fstream>
 
-/*
-You're going to have to write a lexical analyzer to split your input into the "words" of your language 
-(often refered to as "tokens" or "lexemes"). This can be as simple as a while loop with some string comparisons or regular expressions.
-
-Then a parser will take a list/stream of those tokens and create an Abstract Syntax Tree (often abbreviated to AST) 
-according to a grammar, to represent the meaning of your program. A common approach is recursive descent.
-
-Then a backend will translate this AST to the language you want to target. 
-Either translate it to an AST for your target language to be consumed by an implementation of your target language, 
-or directly generate code from your source AST and run it through its native tools.
-*/
-
-int Parser::Read() {
-    return 0;
+template <TokenType T> bool Parser::IsType(TokenType type) {
+    return token.type == type;
 }
 
-Parser::Parser() { }
+ParserResult Declaration(LexicalToken token) {
+    ParserTree node = ParserTree(ParserTreeType::DECLARATION);
+    ParserResult result = ParserResult(node);
 
-Parser::Parser(std::string filePath) {
-    this->filePath = filePath;
+
+    return result;
 }
 
-int Parser::Parse(std::string filePath) {
-    this->filePath = filePath;
+// Use recursive descent parsing
+std::shared_ptr<ParserResult> Parser::Parse(std::vector<LexicalToken> tokens) {
+    auto tree = std::make_unique<ParserTree>(ParserTreeType::FILE);
+    auto result = std::make_shared<ParserResult>(tree);
+
+    for (auto token : tokens) {
+        auto type = token.type;
+
+        if (IsType<TokenType::CONST>(type) || IsType<TokenType::LET>(type) || IsType<TokenType::VAR>(type)) {
+            auto declarationResult = Declaration(token);
+            if (declarationResult.error != nullptr) {
+                // TODO: Handle errors
+            }
+
+            result->tree->nodes.push_back(declarationResult.tree);
+        }
+    }    
     
-    int res = this->Read();
-    return res;
+    return result;
 }
